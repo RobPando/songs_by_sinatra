@@ -4,7 +4,6 @@ require 'sass'
 require 'slim'
 require './song'
 
-set :public_folder, '/assets'
 get('/styles.css'){ scss :styles }
 
 configure do
