@@ -5,14 +5,9 @@ require 'slim'
 require './song'
 require 'sinatra/flash'
 require 'pony'
+require './sinatra/auth'
 
 get('/styles.css') { scss :styles }
-
-configure do
-  enable :sessions
-  set :username, 'frank'
-  set :password, 'sinatra'
-end
 
 configure :development do
   DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
@@ -79,25 +74,6 @@ post '/contact' do
   send_message
   flash[:notice] = "Thank you for your message. We'll be in touch soon."
   redirect to ('/')
-end
-
-get '/login' do
-  slim :login
-end
-
-post '/login' do
-  if params[:username] == settings.username && params[:password] == settings.password
-    session[:admin] = true
-    redirect to('/songs')
-  else
-    flash[:notice] = "Incorrect username or password!"
-    slim :login
-  end
-end
-
-get '/logout' do
-  session.clear
-  redirect to('/login')
 end
 
 not_found do
