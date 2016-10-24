@@ -4,6 +4,7 @@ $ ->
   $('#like input').click (event) ->
     event.preventDefault()
     $.post(
-    (data) -> $('#like p').html(data)
-    .effect('highlight', color: #fcd)
+      $('#like form').attr('action')
+      (data) -> $('#like p').html(data)
+      .effect('highlight', color: '#fcd')
     )
