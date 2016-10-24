@@ -6,8 +6,11 @@ require './song'
 require 'sinatra/flash'
 require 'pony'
 require './sinatra/auth'
+require 'v8'
+require 'coffee-script'
 
 get('/styles.css') { scss :styles }
+get('/javascripts/application.js') { coffee :application }
 
 configure :development do
   DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
